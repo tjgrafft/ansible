@@ -13,5 +13,5 @@
        storage_encrypted: True
        db_instance_class: db.t3.micro
        username: "{{ username }}"
-       password: "{{ password }}"
+       password: "{{ lookup('file', '/var/postgres/password.txt') }}"
        allocated_storage: "{{ allocated_storage }}"
