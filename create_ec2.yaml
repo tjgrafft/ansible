@@ -1,0 +1,41 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+     ami_id: "ami-022e1a32d3f742bd8"
+  module_defaults:
+     group/aws:
+        region: "us-east-1"
+  tasks:
+     - name: Provision Bobs EC2 instance
+       ec2:
+         key_name: pair
+         group: Module5-developer-sg
+         instance_type: t3.nano
+         image: "{{ ami_id }}"
+         instance_tags:
+           Name: Module5 Bob
+           Module: 5
+           Department: Accounting
+         wait: yes
+         vpc_subnet_id: "{{ public_subnet.subnet.id }}"
+         assign_public_ip: yes
+         exact_count: 1
+         count_tag:
+            Name: Module5 Bob
+     - name: Provision Mary EC2 instance
+       ec2:
+         key_name: pair
+         group: Module5-developer-sg
+         instance_type: t3.nano
+         image: "{{ ami_id }}"
+         instance_tags:
+           Name: Module5 Mary
+           Module: 5
+           Department: DevOps
+         wait: yes
+         vpc_subnet_id: "{{ public_subnet.subnet.id }}"
+         assign_public_ip: yes
+         exact_count: 1
+         count_tag:
+            Name: Module5 Mary         

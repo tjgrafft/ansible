@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  vars:
+    username: postgres
+    password: #placeholder
+    allocated_storage: 20
+  tasks: 
+     - name: Create a DB instance using the default AWS KMS encryption key
+       amazon.aws.rds_instance:
+       id: test-encrypted-db
+       state: present
+       engine: postgres
+       storage_encrypted: True
+       db_instance_class: db.t3.micro
+       username: "{{ username }}"
+       password: "{{ password }}"
+       allocated_storage: "{{ allocated_storage }}"

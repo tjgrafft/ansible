@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Include variables from a file
+      include_vars:
+        file: create_vpc.yml
+    - name: Create an Auto Scaling Group
+          amazon.aws.autoscaling_group:
+            name: special
+            availability_zones: [ 'us-east-1a', 'us-east-1b' ]
+            launch_template:
+              version: '4'
+              launch_template_name: 'public-lt'
+              launch_template_id: 'lt-0085984f03e38b008'
+          min_size: 1
+          max_size: 10
+          desired_capacity: 5
+          vpc_zone_identifier: [ "{{ public_subnet.subnet.id }}" ]
+          tags:
+            - environment: production
+              propagate_at_launch: false
