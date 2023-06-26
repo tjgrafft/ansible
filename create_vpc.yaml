@@ -68,7 +68,7 @@
               - 22
               - 80
             cidr_ip: 0.0.0.0/0
-            description: allow all to ports 22 and 80
+            rule_desc: allow all to ports 22 and 80
         state: present
 
     - name: Create new nat gateway and allocate new EIP if a nat gateway does exist.

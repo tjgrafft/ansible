@@ -1,5 +1,5 @@
 ---
-- hosts: al2023
+- hosts: all
   become: yes
   tasks:
     - name: Install emacs-nox
