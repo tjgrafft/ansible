@@ -2,7 +2,7 @@
 - hosts: localhost
   tasks:
     - name: Include subnet
-      import_tasks: create_vpc.yml
+      import_tasks: create_vpc.yaml
     - name: Create LB 
       amazon.aws.elb_application_lb:
         name: myalb

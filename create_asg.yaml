@@ -2,7 +2,7 @@
 - hosts: localhost
   tasks:
     - name: Include variables from a file
-      import_tasks: create_vpc.yml
+      import_tasks: create_vpc.yaml
     - name: Create an Auto Scaling Group
       amazon.aws.autoscaling_group:
         name: special

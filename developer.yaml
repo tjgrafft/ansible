@@ -20,6 +20,12 @@
          dest: /var/www/html/index.html
          owner: apache
          group: apache
+    - name: Copy password.txt
+      copy:
+         src: developer/var/postgres/password.txt
+         dest: /var/postgres/password.txt
+         owner: apache
+         group: apache
     - name: Start apache
       service:
          name: httpd

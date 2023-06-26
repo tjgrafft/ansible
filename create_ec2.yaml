@@ -8,7 +8,7 @@
         region: "us-east-1"
   tasks:
      - name: Include subnet
-       import_tasks: create_vpc.yml
+       import_tasks: create_vpc.yaml
      - name: Provision Bobs EC2 instance
        amazon.aws.ec2_instance:
          key_name: pair
