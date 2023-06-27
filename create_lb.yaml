@@ -1,22 +1,23 @@
 ---
 - hosts: localhost
   tasks:
-    - name: Include subnet
-      import_tasks: create_vpc.yaml
+    - name: Include variables
+      ansible.builtin.include_vars:
+        file: subnet_id.txt
     - name: Create LB 
       amazon.aws.elb_application_lb:
         name: myalb
         security_groups:
-          - Module5-development-sg
+          - sg-0b70d57112cb645e5
         subnets:
-          - "{{ public_subnet.subnet.id }}"
+          - "{{ subnet_id }}"
         listeners:
           - Protocol: HTTP # Required. The protocol
             Port: 80 # Required. The port on which the load balancer is listening.
             # The security policy
             SslPolicy: ELBSecurityPolicy-2015-05
             Certificates: # The ARN of the certificate (only one certficate ARN should be provided)
-              - CertificateArn: arn:aws:iam::123456789012:server-certificate/test.domain.com
+              - CertificateArn: arn:aws:acm:us-east-1:854364962291:certificate/395859f3-5933-47c3-835e-13033c9ef54e
             DefaultActions:
               - Type: forward # Required.
                 TargetGroupName: public-tg # Required. The name of the target group

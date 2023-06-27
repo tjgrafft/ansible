@@ -2,19 +2,20 @@
 - hosts: localhost
   tasks:
     - name: Include variables from a file
-      import_tasks: create_vpc.yaml
+      ansible.builtin.include_vars:
+        file: subnet_id.txt
     - name: Create an Auto Scaling Group
       amazon.aws.autoscaling_group:
         name: special
-        availability_zones: [ 'us-east-1a', 'us-east-1b' ]
+        availability_zones: [ 'us-east-1d' ]
         launch_template:
-          version: '4'
-          launch_template_name: 'public-lt'
-          launch_template_id: 'lt-0085984f03e38b008'
+          version: '1'
+          launch_template_name: 'mod5-lt'
+          launch_template_id: 'lt-05fc996e342bcb3a2'
         min_size: 1
         max_size: 10
         desired_capacity: 5
-        vpc_zone_identifier: [ "{{ public_subnet.subnet.id }}" ]
+        vpc_zone_identifier: [ "{{ subnet_id }}" ]
         tags:
           - environment: production
             propagate_at_launch: false

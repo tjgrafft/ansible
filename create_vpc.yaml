@@ -21,18 +21,23 @@
         tags:
           Name: Module5 public
           Module: 5
-        cidr: 10.10.0.0/24
+        cidr: 10.10.2.0/24
+        az: us-east-1d
         state: present
         region: "us-east-1"
       register: public_subnet
-
+    - name: copy public subnet id
+      copy:
+        content: "{{ {'subnet_id': public_subnet.subnet.id} | to_nice_yaml }}"
+        dest: "subnet_id.txt"
     - name: Create private subnet
       ec2_vpc_subnet:
         vpc_id: "{{ vpc.vpc.id }}"
         tags:
-          Name: Module5 public
+          Name: Module5 private
           Module: 5
-        cidr: 10.10.1.0/24
+        cidr: 10.10.3.0/24
+        az: us-east-1d
         state: present
         region: "us-east-1"
       register: private_subnet
